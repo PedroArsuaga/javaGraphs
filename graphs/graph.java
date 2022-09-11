@@ -28,4 +28,7 @@ public interface graph<E extends Number>
     /* Looks for e in the graph */
     public boolean contains(E e);
 
+    /* Prints adjacency list of graph */
+    public void print();
+
 };

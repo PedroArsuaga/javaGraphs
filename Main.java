@@ -8,7 +8,7 @@
               3
   
  **/
-
+import graphs.*;
 
 public class Main 
 {
@@ -17,7 +17,7 @@ public class Main
     
     public static void main(String[] args)
     {
-        intGraph G = new intGraph();
+        UUGraph<Integer> G = new UUGraph<Integer>();
         for(int i = 0; i < 5; i++)
             G.add(i);
         G.addEdge(0, 1);
@@ -25,9 +25,9 @@ public class Main
         G.addEdge(1,3);
         G.addEdge(1,2);
         G.addEdge(2,4);
+        G.remove(0);
         G.print();
-        G.BFS(0);
-        G.DFS(0);
+        
 
         
     };
