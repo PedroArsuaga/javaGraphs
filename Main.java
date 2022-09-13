@@ -1,4 +1,4 @@
-/**     See intGraph.java for implementation     **/
+/**     See  graph folder for implementation     **/
 /**
         Example graph:
   
