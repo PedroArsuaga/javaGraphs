@@ -23,7 +23,7 @@ public interface graph<E extends Number>
     public void bfs(E s);
 
     /* Depth-first-search starting from s */
-    public void dfs(E e);
+    public void dfs(E s);
 
     /* Looks for e in the graph */
     public boolean contains(E e);

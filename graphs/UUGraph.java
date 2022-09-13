@@ -2,8 +2,9 @@
 package graphs;
 
 import java.util.ArrayList; //Node storage
-//import java.util.ArrayDeque; //BFS
-//import java.util.Stack; //DFS
+import java.util.ArrayDeque; //BFS
+import java.util.HashSet; //For storing nodes in bfs and dfs
+import java.util.Stack; //DFS
 
 public class UUGraph<E extends Number> implements graph<E> {
     
@@ -59,6 +60,18 @@ public class UUGraph<E extends Number> implements graph<E> {
 
         this.nodeCount--;
      };
+
+     /* Gets node with e as element. Returns null if node is not found. */
+     private node getNode(E e)
+     {
+        int i = 0; 
+        while( (i < this.nodeCount) && (this.nodes.get(i).elem != e)) //Look for node
+             i++;
+        if(i < this.nodeCount)
+            return this.nodes.get(i);
+        else   
+            return null;
+     };
  
      /* Adds edge between u and v */
      public void addEdge(E u, E v)
@@ -84,15 +97,77 @@ public class UUGraph<E extends Number> implements graph<E> {
         U.adj.remove(V); V.adj.remove(U);
      };
  
-     /* Breadth-first-search starting from s*/
+     /* Prints breadth-first-search starting from s.*/
      public void bfs(E s)
      {
+        node S = this.getNode(s);
+        int i = 0; //Layer counter
+        HashSet<node> visited = new HashSet<node>();
+        ArrayDeque<node> q = new ArrayDeque<node>();
+        node current;
+        node nullNode = new node(s); //Marker for end of layer
+        
+        System.out.println("Starting node: " + s );
+        q.add(nullNode); //nullNode marks the end of the layer
+        visited.add(S);
+        S.adj.forEach(
+            (v) -> { 
+                     q.add(v); 
+                     visited.add(v); 
+                }
+        );
+        q.add(nullNode);
 
+        while(!q.isEmpty())
+        {   
+            current = q.pop();
+            if(current == nullNode){//Connected component fully explored
+                current = q.peek();
+                if(current == nullNode)
+                    break;
+                i++;
+                System.out.print("Layer " + i + ": ");  
+            }else{
+                System.out.print(current.elem + " ");
+                current.adj.forEach(
+                    (v) -> {
+                            if(!visited.contains(v))
+                            {   
+                                q.add(v); 
+                                visited.add(v); 
+                            }
+                        }
+                );
+                if(q.peek() == nullNode){
+                    System.out.println();
+                    q.add(nullNode);
+                };
+            };
+
+        };//while
      };
  
      /* Depth-first-search starting from s */
-     public void dfs(E e)
+     public void dfs(E s)
      {
+        node S = this.getNode(s);
+        Stack<node> st = new Stack<node>();
+        HashSet<node> visited = new HashSet<node>();
+        node current; st.push(S);
+        while(!st.isEmpty())
+        {
+            current = st.pop();
+            if(!visited.contains(current))
+            {
+                visited.add(current);
+                System.out.print(current.elem + " ");
+                current.adj.forEach(
+                    (v) -> {
+                        st.push(v);
+                    }
+                );
+            };
+        };//while
 
      };
  

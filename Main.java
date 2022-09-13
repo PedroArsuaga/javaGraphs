@@ -25,8 +25,7 @@ public class Main
         G.addEdge(1,3);
         G.addEdge(1,2);
         G.addEdge(2,4);
-        G.remove(0);
-        G.print();
+        G.dfs(0);
         
 
         
