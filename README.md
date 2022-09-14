@@ -1,4 +1,4 @@
-# Java graph interface and implementatoin
+# Java graph interface and implementation
 
 Provides different kinds of graphs with their basic operations.
 
