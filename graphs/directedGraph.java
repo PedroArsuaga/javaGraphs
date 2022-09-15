@@ -93,6 +93,18 @@ public class directedGraph<E extends Number> implements graph<E> {
         };
     };
 
+     /* Gets node with e as element. Returns null if node is not found. */
+    private node getNode(E e)
+    {
+        int i = 0; 
+        while( (i < this.nodeCount) && (this.nodes.get(i).elem != e)) //Look for node
+             i++;
+        if(i < this.nodeCount)
+            return this.nodes.get(i);
+        else   
+            return null;
+    };
+
     public void bfs(E s)
     {
 
@@ -107,13 +119,30 @@ public class directedGraph<E extends Number> implements graph<E> {
 
     public boolean contains(E e)
     {
-        return false;
+        return this.getNode(e) != null.;
     };
 
 
     public void print()
     {
-
+        this.nodes.forEach(
+            (u) -> {
+                System.out.print(u.elem + "Edges towards: ");
+                u.tails.forEach(
+                    (v) -> {
+                        System.out.print( v.elem + " -> ");
+                    }
+                );
+                System.out.println(" ");
+                System.out.print(u.elem + "Edges from: ");
+                u.heads.forEach(
+                    (v) -> {
+                        System.out.print( v.elem + " -> ");
+                    }
+                );
+                System.out.println(" . ");
+            }
+        );
     };
 
 }
