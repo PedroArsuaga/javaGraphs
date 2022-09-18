@@ -2,6 +2,8 @@
 package graphs;
 
 import java.util.ArrayList; //Node storage
+import java.util.HashSet; //For storing nodes in bfs and dfs
+import java.util.ArrayDeque; //for bfs
 
 public class directedGraph<E extends Number> implements graph<E> {
     
@@ -107,7 +109,51 @@ public class directedGraph<E extends Number> implements graph<E> {
 
     public void bfs(E s)
     {
+        node S = this.getNode(s);
+        int i = 0; //Layer counter
+        HashSet<node> visited = new HashSet<node>();
+        ArrayDeque<node> q = new ArrayDeque<node>();
+        node current;
+        node nullNode = new node(s); //Marker for end of layer
+        
+        System.out.println("Starting node: " + s );
+        q.add(nullNode); //nullNode marks the end of the layer
+        visited.add(S);
+        S.tails.forEach(
+            (v) -> { 
+                     q.add(v); 
+                     visited.add(v); 
+                }
+        );
+        q.add(nullNode);
 
+        while(!q.isEmpty())
+        {   
+            current = q.pop();
+            if(current == nullNode){//Connected component fully explored
+                current = q.peek();
+                if(current == nullNode)
+                    break;
+                i++;
+                System.out.print("Layer " + i + ": ");  
+            }else{
+                System.out.print(current.elem + " ");
+                current.tails.forEach(
+                    (v) -> {
+                            if(!visited.contains(v))
+                            {   
+                                q.add(v); 
+                                visited.add(v); 
+                            }
+                        }
+                );
+                if(q.peek() == nullNode){
+                    System.out.println();
+                    q.add(nullNode);
+                };
+            };
+
+        };//while
     };
  
 
@@ -119,7 +165,7 @@ public class directedGraph<E extends Number> implements graph<E> {
 
     public boolean contains(E e)
     {
-        return this.getNode(e) != null.;
+        return this.getNode(e) != null;
     };
 
 
@@ -127,6 +173,7 @@ public class directedGraph<E extends Number> implements graph<E> {
     {
         this.nodes.forEach(
             (u) -> {
+                System.out.println(u.elem + ": ");
                 System.out.print(u.elem + "Edges towards: ");
                 u.tails.forEach(
                     (v) -> {
