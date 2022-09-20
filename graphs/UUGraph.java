@@ -147,28 +147,31 @@ public class UUGraph<E extends Number> implements graph<E> {
         };//while
      };
  
-     /* Depth-first-search starting from s */
-     public void dfs(E s)
+     /*Auxiliary function for dfs */
+     public void dfsAux(E s, HashSet<node> visited)
      {
         node S = this.getNode(s);
-        Stack<node> st = new Stack<node>();
-        HashSet<node> visited = new HashSet<node>();
-        node current; st.push(S);
-        while(!st.isEmpty())
-        {
-            current = st.pop();
-            if(!visited.contains(current))
+        visited.add(S);
+        System.out.print(s + " ");
+        S.adj.forEach(
+         (v) -> {
+            if(!visited.contains(v))
             {
-                visited.add(current);
-                System.out.print(current.elem + " ");
-                current.adj.forEach(
-                    (v) -> {
-                        st.push(v);
-                    }
-                );
+                visited.add(v);
+                dfsAux(v.elem, visited);
             };
-        };//while
 
+         }  
+        );
+
+     };
+
+     /* Prints depth-first-search starting from s */
+     public void dfs(E s)
+     {
+        HashSet<node> visited = new HashSet<node>();
+        dfsAux(s, visited);
+        System.out.println();
      };
  
      /* Looks for e in the graph */
