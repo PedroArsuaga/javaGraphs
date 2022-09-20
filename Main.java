@@ -35,7 +35,7 @@ public class Main
         G.addEdge(4,3);G.addEdge(4,6);G.addEdge(4,7);
         G.addEdge(5,4);G.addEdge(5,7);
         G.addEdge(7,6);
-        G.bfs(1);
+        G.dfs(1);
 
         
     };

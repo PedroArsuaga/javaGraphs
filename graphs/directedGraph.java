@@ -157,9 +157,31 @@ public class directedGraph<E extends Number> implements graph<E> {
     };
  
 
+    /*Auxiliary function for dfs */
+    public void dfsAux(E s, HashSet<node> visited)
+    {
+       node S = this.getNode(s);
+       visited.add(S);
+       System.out.print(s + " ");
+       S.tails.forEach(
+        (v) -> {
+           if(!visited.contains(v))
+           {
+               visited.add(v);
+               dfsAux(v.elem, visited);
+           };
+
+        }  
+       );
+
+    };
+
+    /* Prints depth-first-search starting from s */
     public void dfs(E s)
     {
-        
+       HashSet<node> visited = new HashSet<node>();
+       dfsAux(s, visited);
+       System.out.println();
     };
  
 
